@@ -16,20 +16,21 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Task query()
  * @property int $id
  * @property string $uuid
- * @property int $card_id
- * @property int $merchant_id
+ * @property int $user_id
  * @property bool $is_finished
  * @property string $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @method static Builder|Task whereCardId($value)
+ * @method static Builder|Task whereUserId($value)
  * @method static Builder|Task whereCreatedAt($value)
  * @method static Builder|Task whereId($value)
  * @method static Builder|Task whereIsFinished($value)
- * @method static Builder|Task whereMerchantId($value)
  * @method static Builder|Task whereStatus($value)
  * @method static Builder|Task whereUpdatedAt($value)
  * @method static Builder|Task whereUuid($value)
+ * @mixin Eloquent
+ * @property string $type
+ * @method static Builder|Task whereType($value)
  * @mixin Eloquent
  */
 class Task extends Model
@@ -38,8 +39,7 @@ class Task extends Model
 
     protected $fillable = [
         'uuid',
-        'card_id',
-        'merchant_id',
+        'user_id',
         'is_finished',
         'progress',
         'type',
