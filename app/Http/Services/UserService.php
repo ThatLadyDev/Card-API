@@ -37,12 +37,13 @@ class UserService
     /**
      * @throws APIException
      */
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): bool|string
     {
         try {
             $credentials = $request->only('email', 'password');
 
             if (Auth::attempt($credentials)) {
+                /** @var User $user */
                 $user = Auth::user();
                 return $user->createToken(config('app.name'))->accessToken;
             }
