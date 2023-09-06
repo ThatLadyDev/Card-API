@@ -54,4 +54,14 @@ class UserService
             throw new APIException($e->getMessage());
         }
     }
+
+    /**
+     * @param string $uuid
+     * @param array $get
+     * @return array
+     */
+    public function get(string $uuid, array $get = ['*']): array
+    {
+        return User::whereUuid($uuid)->first($get)->toArray();
+    }
 }
