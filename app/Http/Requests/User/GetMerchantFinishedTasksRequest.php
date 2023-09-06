@@ -23,7 +23,7 @@ class GetMerchantFinishedTasksRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'uuid' => 'required|uuid|exists:users,uuid'
+            'uuid' => 'required|uuid|exists:users,uuid',
         ];
     }
 

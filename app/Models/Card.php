@@ -20,6 +20,7 @@ use Illuminate\Support\Carbon;
  * @property string $cardholder_name
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static Builder|Card newModelQuery()
  * @method static Builder|Card newQuery()
  * @method static Builder|Card query()
@@ -32,12 +33,14 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Card whereUpdatedAt($value)
  * @method static Builder|Card whereUserId($value)
  * @method static Builder|Card whereUuid($value)
+ *
  * @mixin Eloquent
  */
 class Card extends Model
 {
     use HasFactory;
 
+    /** @var string[] $fillable */
     protected $fillable = [
         'uuid',
         'user_id',

@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://laravel.com" target="_blank">
-        <strong style="font-size: 40px">CARD API</strong>
+        <img style="width: 180px" src="https://cdn-icons-png.flaticon.com/512/5502/5502357.png" alt="Card API Logo" />
     </a>
 </p>
 

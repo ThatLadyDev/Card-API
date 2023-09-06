@@ -5,7 +5,6 @@ use App\Http\Controllers\API\CardController;
 use App\Http\Controllers\API\MerchantController;
 use App\Http\Controllers\API\TaskController;
 use App\Http\Controllers\API\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 //Route::get('/test', function (){
@@ -18,14 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/auth/register', [AuthenticationController::class, 'register']);
 Route::post('/auth/login', [AuthenticationController::class, 'login']);
 
-Route::middleware('auth:api')->group(function () {
-    /**
-     * User Endpoints
-     */
-//    Route::get('/user/{uuid}', []);
-//    Route::post('/user/{uuid}/edit', []);
-//    Route::delete('/user/{uuid}/delete', []);
-
+Route::middleware('auth:api')->group(function (): void {
     /**
      * Card Endpoints
      */
@@ -44,10 +36,8 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/task/create', [TaskController::class, 'create']);
     Route::post('/task/{uuid}/update', [TaskController::class, 'update']);
 
-
     /**
      * User Task Endpoint
      */
     Route::get('/user/{uuid}/finished-tasks/latest', [UserController::class, 'finishedTasksByMerchant']);
 });
-

@@ -3,3 +3,5 @@ phpinsights:
 
 phpstan:
 	vendor/bin/phpstan analyse
+
+.PHONY: phpinsights phpstan

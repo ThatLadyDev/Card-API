@@ -13,10 +13,8 @@ use Illuminate\Http\JsonResponse;
 
 class AuthenticationController extends Controller
 {
-    /** @var UserService $service */
     private UserService $service;
 
-    /** @var APIResponse $response */
     private APIResponse $response;
 
     public function __construct()
@@ -26,8 +24,6 @@ class AuthenticationController extends Controller
     }
 
     /**
-     * @param RegisterRequest $request
-     * @return JsonResponse
      * @throws Exception
      */
     public function register(RegisterRequest $request): JsonResponse
@@ -38,8 +34,6 @@ class AuthenticationController extends Controller
     }
 
     /**
-     * @param LoginRequest $request
-     * @return JsonResponse
      * @throws APIException
      */
     public function login(LoginRequest $request): JsonResponse

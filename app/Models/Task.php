@@ -14,6 +14,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Task newModelQuery()
  * @method static Builder|Task newQuery()
  * @method static Builder|Task query()
+ *
  * @property int $id
  * @property string $uuid
  * @property int $user_id
@@ -21,6 +22,7 @@ use Illuminate\Support\Carbon;
  * @property string $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static Builder|Task whereUserId($value)
  * @method static Builder|Task whereCreatedAt($value)
  * @method static Builder|Task whereId($value)
@@ -28,9 +30,13 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Task whereStatus($value)
  * @method static Builder|Task whereUpdatedAt($value)
  * @method static Builder|Task whereUuid($value)
+ *
  * @mixin Eloquent
+ *
  * @property string $type
+ *
  * @method static Builder|Task whereType($value)
+ *
  * @mixin Eloquent
  */
 class Task extends Model
@@ -46,6 +52,6 @@ class Task extends Model
     ];
 
     protected $casts = [
-        'is_finished' => 'boolean'
+        'is_finished' => 'boolean',
     ];
 }
