@@ -34,10 +34,11 @@ class CardService
 
     /**
      * @param string $uuid
+     * @param array $get
      * @return array
      */
-    public function get(string $uuid): array
+    public function get(string $uuid, array $get = ['*']): array
     {
-        return Card::whereUuid($uuid)->first()->toArray();
+        return Card::whereUuid($uuid)->first($get)->toArray();
     }
 }
