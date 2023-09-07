@@ -10,9 +10,6 @@ class APIException extends Exception
 {
     /**
      * Render the exception into an HTTP response.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function render(Request $request): JsonResponse
     {

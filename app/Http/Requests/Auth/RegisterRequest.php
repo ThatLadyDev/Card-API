@@ -7,17 +7,13 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
 {
-    /** @var string $name */
-    public string $name;
+    private string $name;
 
-    /** @var string $email */
-    public string $email;
+    private string $email;
 
-    /** @var string $password */
-    public string $password;
+    private string $userPassword;
 
-    /** @var bool $isAdmin */
-    public bool $isAdmin;
+    private bool $isAdmin;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -38,18 +34,35 @@ class RegisterRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users|max:255',
             'password' => 'required|string|min:8',
-            'is_admin' => 'nullable|boolean'
+            'is_admin' => 'nullable|boolean',
         ];
     }
 
-    /**
-     * @return void
-     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getUserPassword(): string
+    {
+        return $this->userPassword;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getIsAdmin(): bool
+    {
+        return $this->isAdmin;
+    }
+
     protected function passedValidation(): void
     {
         $this->name = $this->input('name');
         $this->email = $this->input('email');
-        $this->password = $this->input('password');
+        $this->userPassword = $this->input('password');
         $this->isAdmin = $this->input('is_admin') === null ? false : $this->input('is_admin');
     }
 }

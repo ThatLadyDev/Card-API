@@ -7,14 +7,11 @@ use App\Http\Requests\User\GetMerchantFinishedTasksRequest;
 use App\Http\Responses\APIResponse;
 use App\Http\Services\TaskService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /** @var TaskService $taskService */
     private TaskService $taskService;
 
-    /** @var APIResponse $response */
     private APIResponse $response;
 
     public function __construct()
@@ -23,14 +20,9 @@ class UserController extends Controller
         $this->response = new APIResponse();
     }
 
-    /**
-     * @param string $uuid
-     * @param GetMerchantFinishedTasksRequest $request
-     * @return JsonResponse
-     */
-    public function finishedTasksByMerchant(string $uuid, GetMerchantFinishedTasksRequest $request): JsonResponse
+    public function finishedTasksByMerchant(GetMerchantFinishedTasksRequest $request): JsonResponse
     {
-        $tasks = $this->taskService->listByUser($uuid);
+        $tasks = $this->taskService->listByUser($request->route('uuid'));
         return $this->response->setData($tasks)->success();
     }
 }

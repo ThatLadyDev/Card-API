@@ -17,6 +17,7 @@ use Illuminate\Support\Carbon;
  * @property string $website
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static Builder|Merchant newModelQuery()
  * @method static Builder|Merchant newQuery()
  * @method static Builder|Merchant query()
@@ -26,12 +27,14 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Merchant whereUpdatedAt($value)
  * @method static Builder|Merchant whereUuid($value)
  * @method static Builder|Merchant whereWebsite($value)
+ *
  * @mixin Eloquent
  */
 class Merchant extends Model
 {
     use HasFactory;
 
+    /** @var string[] $fillable */
     protected $fillable = [
         'uuid',
         'name',

@@ -13,10 +13,8 @@ use Illuminate\Http\JsonResponse;
 
 class AuthenticationController extends Controller
 {
-    /** @var UserService $service */
     private UserService $service;
 
-    /** @var APIResponse $response */
     private APIResponse $response;
 
     public function __construct()
@@ -26,9 +24,21 @@ class AuthenticationController extends Controller
     }
 
     /**
-     * @param RegisterRequest $request
-     * @return JsonResponse
-     * @throws Exception
+     * @OA\Post(
+     *     path="/api/auth/register",
+     *     summary="Creates a new user account",
+     *     @OA\Parameter(
+     *         description="Parameter with mutliple examples",
+     *         in="path",
+     *         name="name",
+     *         required=true,
+     *     @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
      */
     public function register(RegisterRequest $request): JsonResponse
     {
@@ -38,8 +48,6 @@ class AuthenticationController extends Controller
     }
 
     /**
-     * @param LoginRequest $request
-     * @return JsonResponse
      * @throws APIException
      */
     public function login(LoginRequest $request): JsonResponse

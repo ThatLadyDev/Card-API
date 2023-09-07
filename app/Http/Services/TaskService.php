@@ -11,16 +11,12 @@ use Illuminate\Support\Str;
 
 class TaskService
 {
-    /** @var MerchantService $merchantService */
     private MerchantService $merchantService;
 
-    /** @var CardService $cardService */
     private CardService $cardService;
 
-    /** @var UserService $userService */
     private UserService $userService;
 
-    /** @var Task $task */
     private Task $task;
 
     public function __construct()
@@ -32,7 +28,8 @@ class TaskService
 
     /**
      * @param string $uuid
-     * @return array
+     *
+     * @return string[]
      */
     public function listByUser(string $uuid): array
     {
@@ -60,28 +57,6 @@ class TaskService
     }
 
     /**
-     * @param CreateRequest $request
-     * @param int $taskId
-     * @return void
-     */
-    private function switchCards(CreateRequest $request, int $taskId): void
-    {
-        $previousCardId = $this->cardService->get($request->previousCardUuid, ['id'])['id'];
-        $newCardId = $this->cardService->get($request->newCardUuid, ['id'])['id'];
-        $merchantId = $this->merchantService->get($request->merchantUuid, ['id'])['id'];
-
-        CardSwitch::query()->create([
-            'uuid' => Str::uuid(),
-            'task_id' => $taskId,
-            'new_card_id' => $newCardId,
-            'previous_card_id' => $previousCardId,
-            'merchant_id' => $merchantId,
-        ]);
-    }
-
-    /**
-     * @param CreateRequest $request
-     * @return void
      * @throws APIException
      */
     public function create(CreateRequest $request): void
@@ -90,14 +65,13 @@ class TaskService
             $task = Task::query()->create([
                 'user_id' => auth()->id(),
                 'uuid' => Str::uuid(),
-                'type' => $request->type
+                'type' => $request->getType(),
             ]);
 
-            if ($request->type === 'card_switch'){
+            if ($request->getType() === 'card_switch') {
                 $this->switchCards($request, $task->id);
             }
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             throw new APIException($e->getMessage());
         }
     }
@@ -118,8 +92,7 @@ class TaskService
         try {
             $this->task->is_finished = true;
             $this->task->save();
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             throw new APIException($e->getMessage());
         }
     }
@@ -132,9 +105,23 @@ class TaskService
         try {
             $this->task->status = 'failed';
             $this->task->save();
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             throw new APIException($e->getMessage());
         }
+    }
+
+    private function switchCards(CreateRequest $request, int $taskId): void
+    {
+        $previousCardId = $this->cardService->get($request->getPreviousCardUuid(), ['id'])['id'];
+        $newCardId = $this->cardService->get($request->getNewCardUuid(), ['id'])['id'];
+        $merchantId = $this->merchantService->get($request->getMerchantUuid(), ['id'])['id'];
+
+        CardSwitch::query()->create([
+            'uuid' => Str::uuid(),
+            'task_id' => $taskId,
+            'new_card_id' => $newCardId,
+            'previous_card_id' => $previousCardId,
+            'merchant_id' => $merchantId,
+        ]);
     }
 }

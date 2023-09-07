@@ -8,17 +8,13 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRequest extends FormRequest
 {
-    /** @var string $cardNumber */
-    public string $cardNumber;
+    private string $cardNumber;
 
-    /** @var string $expirationDate */
-    public string $expirationDate;
+    private string $expirationDate;
 
-    /** @var int $cvv */
-    public int $cvv;
+    private int $cvv;
 
-    /** @var string $cardholderName */
-    public string $cardholderName;
+    private string $cardholderName;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -43,9 +39,26 @@ class CreateRequest extends FormRequest
         ];
     }
 
-    /**
-     * @return void
-     */
+    public function getCardholderName(): string
+    {
+        return $this->cardholderName;
+    }
+
+    public function getCardNumber(): string
+    {
+        return $this->cardNumber;
+    }
+
+    public function getExpirationDate(): string
+    {
+        return $this->expirationDate;
+    }
+
+    public function getCvv(): int
+    {
+        return $this->cvv;
+    }
+
     protected function passedValidation(): void
     {
         $this->cardNumber = $this->input('card_number');

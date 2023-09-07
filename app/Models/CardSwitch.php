@@ -19,6 +19,7 @@ use Illuminate\Support\Carbon;
  * @property int $previous_card_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static Builder|CardSwitch newModelQuery()
  * @method static Builder|CardSwitch newQuery()
  * @method static Builder|CardSwitch query()
@@ -30,12 +31,14 @@ use Illuminate\Support\Carbon;
  * @method static Builder|CardSwitch wherePreviousCardId($value)
  * @method static Builder|CardSwitch whereUpdatedAt($value)
  * @method static Builder|CardSwitch whereUuid($value)
+ *
  * @mixin Eloquent
  */
 class CardSwitch extends Model
 {
     use HasFactory;
 
+    /** @var string[] $fillable */
     protected $fillable = [
         'uuid',
         'task_id',
