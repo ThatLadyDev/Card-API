@@ -24,7 +24,21 @@ class AuthenticationController extends Controller
     }
 
     /**
-     * @throws Exception
+     * @OA\Post(
+     *     path="/api/auth/register",
+     *     summary="Creates a new user account",
+     *     @OA\Parameter(
+     *         description="Parameter with mutliple examples",
+     *         in="path",
+     *         name="name",
+     *         required=true,
+     *     @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK"
+     *     )
+     * )
      */
     public function register(RegisterRequest $request): JsonResponse
     {
