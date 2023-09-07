@@ -2,23 +2,18 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Enums\TaskType;
 use App\Exceptions\APIException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Task\CreateRequest;
 use App\Http\Requests\Task\UpdateRequest;
 use App\Http\Responses\APIResponse;
-use App\Http\Services\CardService;
 use App\Http\Services\TaskService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    /** @var TaskService $service */
     private TaskService $service;
 
-    /** @var APIResponse $response */
     private APIResponse $response;
 
     public function __construct()
@@ -28,8 +23,6 @@ class TaskController extends Controller
     }
 
     /**
-     * @param CreateRequest $request
-     * @return JsonResponse
      * @throws APIException
      */
     public function create(CreateRequest $request): JsonResponse
@@ -39,15 +32,12 @@ class TaskController extends Controller
     }
 
     /**
-     * @param string $uuid
-     * @param UpdateRequest $request
-     * @return JsonResponse
      * @throws APIException
      */
-    public function update(string $uuid, UpdateRequest $request): JsonResponse
+    public function update(UpdateRequest $request): JsonResponse
     {
-        $task = $this->service->mark($uuid);
-        $request->action === 'mark_as_finished' ? $task->asFinished() : $task->asFailed();
+        $task = $this->service->mark($request->route('uuid'));
+        $request->getAction() === 'mark_as_finished' ? $task->asFinished() : $task->asFailed();
         return $this->response->setMessage('Task Updated Successfully.')->success();
     }
 }

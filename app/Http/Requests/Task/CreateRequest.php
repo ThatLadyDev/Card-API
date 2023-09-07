@@ -9,17 +9,13 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRequest extends FormRequest
 {
-    /** @var string $newCardUuid */
-    public string $newCardUuid;
+    private string $newCardUuid;
 
-    /** @var string $merchantUuid */
-    public string $merchantUuid;
+    private string $merchantUuid;
 
-    /** @var string $type */
-    public string $type;
+    private string $type;
 
-    /** @var string $previousCardUuid */
-    public string $previousCardUuid;
+    private string $previousCardUuid;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -27,6 +23,26 @@ class CreateRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    public function getNewCardUuid(): string
+    {
+        return $this->newCardUuid;
+    }
+
+    public function getMerchantUuid(): string
+    {
+        return $this->merchantUuid;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function getPreviousCardUuid(): string
+    {
+        return $this->previousCardUuid;
     }
 
     /**
@@ -41,16 +57,16 @@ class CreateRequest extends FormRequest
                 'required',
                 'uuid',
                 'exists:cards,uuid',
-                new CheckCardsForUser,
-                'different:prev_card_uuid'
+                new CheckCardsForUser(),
+                'different:prev_card_uuid',
             ],
             'prev_card_uuid' => 'required|uuid|exists:cards,uuid',
             'merchant_uuid' => 'required|string|exists:merchants,uuid',
             'type' => [
                 'required',
                 'string',
-                'in:' . implode(',', TaskType::toArray('name'))
-            ]
+                'in:' . implode(',', TaskType::toArray('name')),
+            ],
         ];
     }
 

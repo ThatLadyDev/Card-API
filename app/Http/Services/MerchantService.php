@@ -11,8 +11,6 @@ use Illuminate\Support\Str;
 class MerchantService
 {
     /**
-     * @param CreateRequest $request
-     * @return void
      * @throws APIException
      */
     public function create(CreateRequest $request): void
@@ -20,11 +18,10 @@ class MerchantService
         try {
             Merchant::query()->create([
                 'uuid' => Str::uuid(),
-                'name' => $request->name,
-                'website' => $request->website,
+                'name' => $request->getName(),
+                'website' => $request->getWebsite(),
             ]);
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             throw new APIException($e->getMessage());
         }
     }
@@ -32,6 +29,7 @@ class MerchantService
     /**
      * @param string $uuid
      * @param array $get
+     *
      * @return array
      */
     public function get(string $uuid, array $get = ['*']): array

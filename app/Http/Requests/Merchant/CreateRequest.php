@@ -4,15 +4,12 @@ namespace App\Http\Requests\Merchant;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use function Symfony\Component\Translation\t;
 
 class CreateRequest extends FormRequest
 {
-    /** @var string $name */
-    public string $name;
+    private string $name;
 
-    /** @var string $website */
-    public string $website;
+    private string $website;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -33,6 +30,16 @@ class CreateRequest extends FormRequest
             'name' => 'required|string',
             'website' => 'required|string',
         ];
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getWebsite(): string
+    {
+        return $this->website;
     }
 
     protected function passedValidation(): void

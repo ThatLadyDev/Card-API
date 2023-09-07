@@ -9,14 +9,11 @@ use App\Http\Requests\Merchant\GetRequest;
 use App\Http\Responses\APIResponse;
 use App\Http\Services\MerchantService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class MerchantController extends Controller
 {
-    /** @var MerchantService $service */
     private MerchantService $service;
 
-    /** @var APIResponse $response */
     private APIResponse $response;
 
     public function __construct()
@@ -25,20 +22,13 @@ class MerchantController extends Controller
         $this->response = new APIResponse();
     }
 
-    /**
-     * @param string $uuid
-     * @param GetRequest $request
-     * @return JsonResponse
-     */
-    public function single(string $uuid, GetRequest $request): JsonResponse
+    public function single(GetRequest $request): JsonResponse
     {
-        $merchant = $this->service->get($uuid);
+        $merchant = $this->service->get($request->route('uuid'));
         return $this->response->setData($merchant)->success();
     }
 
     /**
-     * @param CreateRequest $request
-     * @return JsonResponse
      * @throws APIException
      */
     public function create(CreateRequest $request): JsonResponse

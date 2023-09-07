@@ -7,15 +7,12 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Exception;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class UserService
 {
     /**
-     * @param RegisterRequest $request
-     * @return void
      * @throws Exception
      */
     public function create(RegisterRequest $request): void
@@ -23,13 +20,12 @@ class UserService
         try {
             User::query()->create([
                 'uuid' => Str::uuid(),
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-                'is_super_admin' => $request->isAdmin
+                'name' => $request->getName(),
+                'email' => $request->getEmail(),
+                'password' => bcrypt($request->getUserPassword()),
+                'is_super_admin' => $request->getIsAdmin(),
             ]);
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             throw new APIException($e->getMessage());
         }
     }
@@ -49,15 +45,14 @@ class UserService
             }
 
             return false;
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             throw new APIException($e->getMessage());
         }
     }
 
     /**
-     * @param string $uuid
      * @param array $get
+     *
      * @return array
      */
     public function get(string $uuid, array $get = ['*']): array

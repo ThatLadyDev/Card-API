@@ -12,10 +12,8 @@ use Illuminate\Http\JsonResponse;
 
 class CardController extends Controller
 {
-    /** @var CardService $service */
     private CardService $service;
 
-    /** @var APIResponse $response */
     private APIResponse $response;
 
     public function __construct()
@@ -24,20 +22,13 @@ class CardController extends Controller
         $this->response = new APIResponse();
     }
 
-    /**
-     * @param string $uuid
-     * @param GetRequest $request
-     * @return JsonResponse
-     */
-    public function single(string $uuid, GetRequest $request): JsonResponse
+    public function single(GetRequest $request): JsonResponse
     {
-        $card = $this->service->get($uuid);
+        $card = $this->service->get($request->route('uuid'));
         return $this->response->setData($card)->success();
     }
 
     /**
-     * @param CreateRequest $request
-     * @return JsonResponse
      * @throws APIException
      */
     public function create(CreateRequest $request): JsonResponse
