@@ -1,19 +1,53 @@
 <?php
 
+use App\Http\Controllers\API\AuthenticationController;
+use App\Http\Controllers\API\CardController;
+use App\Http\Controllers\API\MerchantController;
+use App\Http\Controllers\API\TaskController;
+use App\Http\Controllers\API\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+//Route::get('/test', function (){
+//    return response()->json(['welcome']);
+//});
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+/**
+ * Authentication Routes
+ */
+Route::post('/auth/register', [AuthenticationController::class, 'register']);
+Route::post('/auth/login', [AuthenticationController::class, 'login']);
+
+Route::middleware('auth:api')->group(function () {
+    /**
+     * User Endpoints
+     */
+//    Route::get('/user/{uuid}', []);
+//    Route::post('/user/{uuid}/edit', []);
+//    Route::delete('/user/{uuid}/delete', []);
+
+    /**
+     * Card Endpoints
+     */
+    Route::get('/card/{uuid}', [CardController::class, 'single']);
+    Route::post('/card/create', [CardController::class, 'create']);
+
+    /**
+     * Merchant Endpoints
+     */
+    Route::get('/merchants/{uuid}', [MerchantController::class, 'single']);
+    Route::post('/merchants/create', [MerchantController::class, 'create']);
+
+    /**
+     * Tasks Endpoints
+     */
+    Route::post('/task/create', [TaskController::class, 'create']);
+    Route::post('/task/{uuid}/update', [TaskController::class, 'update']);
+
+
+    /**
+     * User Task Endpoint
+     */
+    Route::get('/user/{uuid}/finished-tasks/latest', [UserController::class, 'finishedTasksByMerchant']);
 });
+
