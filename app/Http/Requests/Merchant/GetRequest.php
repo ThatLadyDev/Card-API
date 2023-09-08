@@ -23,7 +23,7 @@ class GetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'uuid' => 'required|string|exists:cards,uuid',
+            'uuid' => 'required|string|exists:merchants,uuid',
         ];
     }
 
