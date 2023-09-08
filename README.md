@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://laravel.com" target="_blank">
+    <a href="http://project-knot.loisbassey.com" target="_blank">
         <img style="width: 180px" src="https://cdn-icons-png.flaticon.com/512/5502/5502357.png" alt="Card API Logo" />
     </a>
 </p>
@@ -33,6 +33,11 @@ Here's a list of the main API endpoints available in this project:
 - POST /task/{uuid}/update: Update an already created task by its UUID. 
 - GET /user/{uuid}/finished-tasks/latest: Get the latest finished tasks of a user grouped by its merchant_id. 
 - DELETE /api/users/{id}: Delete a user by their ID.
+
+### Use PostMan
+Link To PostMan API Documentation & Definition For This API
+
+https://www.postman.com/thatladydev/workspace/knotapi/api/e1d0d16e-acfb-440d-aa1f-0ee049730e7c?action=share&creator=6272063
 
 ## How To Run This Application Locally
 ### Prerequisites
