@@ -8,6 +8,9 @@
 
 Card API is a restful API built with Laravel 10 following the best practices recommended by Laravel Docs, expressive code, and making sure my code could work great under 100 requests per second.
 
+## Project Link
+http://project-knot.loisbassey.com
+
 ## Project Architecture
 The Card API project follows a structured and modular architecture that separates concerns effectively. Here's an overview of the key components and their roles:
 
